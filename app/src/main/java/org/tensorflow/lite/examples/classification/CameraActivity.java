@@ -545,7 +545,7 @@ public abstract class CameraActivity extends AppCompatActivity
 
         float confi = 100 * recognition.getConfidence();
         try {
-          if (!five && recognitionTextView.getText().toString().equalsIgnoreCase("500") && confi>70 ) {
+          if (!five && recognitionTextView.getText().toString().equalsIgnoreCase("500") && confi>90 ) {
             mp500.start();
             five =true;
             ten = false;
@@ -555,7 +555,7 @@ public abstract class CameraActivity extends AppCompatActivity
             twohun=false;
             fifty=false;
 
-          } else if (!hun&& recognitionTextView.getText().toString().equalsIgnoreCase("100")&& confi>70) {
+          } else if (!hun&& recognitionTextView.getText().toString().equalsIgnoreCase("100")&& confi>90) {
             mp100.start();
             hun = true;
             five =false;
@@ -564,7 +564,7 @@ public abstract class CameraActivity extends AppCompatActivity
             twothou =false;
             twohun=false;
             fifty=false;
-          } else if (!ten&&recognitionTextView.getText().toString().equalsIgnoreCase("10")&& confi>70 ) {
+          } else if (!ten&&recognitionTextView.getText().toString().equalsIgnoreCase("10")&& confi>90 ) {
             mp10.start();
             ten  =true;
             five =false;
@@ -574,7 +574,7 @@ public abstract class CameraActivity extends AppCompatActivity
             twohun=false;
             fifty=false;
           }
-          else if (!fifty&&recognitionTextView.getText().toString().equalsIgnoreCase("50")&& confi>70 ) {
+          else if (!fifty&&recognitionTextView.getText().toString().equalsIgnoreCase("50")&& confi>90 ) {
             mp50.start();
             ten  =false;
             five =false;
@@ -584,7 +584,7 @@ public abstract class CameraActivity extends AppCompatActivity
             twohun=false;
             fifty=true;
           }
-          else if (!twen&&recognitionTextView.getText().toString().equalsIgnoreCase("20")&& confi>70 ) {
+          else if (!twen&&recognitionTextView.getText().toString().equalsIgnoreCase("20")&& confi>90 ) {
             mp20.start();
             ten  =false;
             five =false;
@@ -594,7 +594,7 @@ public abstract class CameraActivity extends AppCompatActivity
             twohun=false;
             fifty=false;
           }
-          else if (!twohun&&recognitionTextView.getText().toString().equalsIgnoreCase("200")&& confi>70 ) {
+          else if (!twohun&&recognitionTextView.getText().toString().equalsIgnoreCase("200")&& confi>90 ) {
             mp200.start();
             ten  =false;
             five =false;
@@ -604,7 +604,7 @@ public abstract class CameraActivity extends AppCompatActivity
             twohun=true;
             fifty=false;
           }
-          else if (!twothou&&recognitionTextView.getText().toString().equalsIgnoreCase("2000")&& confi>70 ) {
+          else if (!twothou&&recognitionTextView.getText().toString().equalsIgnoreCase("2000")&& confi>90 ) {
             mp2000.start();
             ten  =false;
             five =false;
