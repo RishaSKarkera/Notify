@@ -533,6 +533,7 @@ public abstract class CameraActivity extends AppCompatActivity
   boolean twohun=false;
   boolean fifty=false;
   boolean twothou=false;
+  boolean fake=false;
   @UiThread
   protected void showResultsInBottomSheet(List<Recognition> results) {
     if (results != null && results.size() >= 3) {
@@ -545,7 +546,7 @@ public abstract class CameraActivity extends AppCompatActivity
 
         float confi = 100 * recognition.getConfidence();
         try {
-          if (!five && recognitionTextView.getText().toString().equalsIgnoreCase("500") && confi>90 ) {
+          if (!five && recognitionTextView.getText().toString().equalsIgnoreCase("Rs. 500") && confi>90 ) {
             mp500.start();
             five =true;
             ten = false;
@@ -554,8 +555,9 @@ public abstract class CameraActivity extends AppCompatActivity
             twothou =false;
             twohun=false;
             fifty=false;
+            fake=false;
 
-          } else if (!hun&& recognitionTextView.getText().toString().equalsIgnoreCase("100")&& confi>90) {
+          } else if (!hun&& recognitionTextView.getText().toString().equalsIgnoreCase("Rs. 100")&& confi>90) {
             mp100.start();
             hun = true;
             five =false;
@@ -564,7 +566,9 @@ public abstract class CameraActivity extends AppCompatActivity
             twothou =false;
             twohun=false;
             fifty=false;
-          } else if (!ten&&recognitionTextView.getText().toString().equalsIgnoreCase("10")&& confi>90 ) {
+            fake=false;
+          }
+          else if (!ten&&recognitionTextView.getText().toString().equalsIgnoreCase("Rs. 10")&& confi>90 ) {
             mp10.start();
             ten  =true;
             five =false;
@@ -573,8 +577,9 @@ public abstract class CameraActivity extends AppCompatActivity
             twothou =false;
             twohun=false;
             fifty=false;
+            fake=false;
           }
-          else if (!fifty&&recognitionTextView.getText().toString().equalsIgnoreCase("50")&& confi>90 ) {
+          else if (!fifty&&recognitionTextView.getText().toString().equalsIgnoreCase("Rs. 50")&& confi>90 ) {
             mp50.start();
             ten  =false;
             five =false;
@@ -583,8 +588,9 @@ public abstract class CameraActivity extends AppCompatActivity
             twothou =false;
             twohun=false;
             fifty=true;
+            fake=false;
           }
-          else if (!twen&&recognitionTextView.getText().toString().equalsIgnoreCase("20")&& confi>90 ) {
+          else if (!twen&&recognitionTextView.getText().toString().equalsIgnoreCase("Rs. 20")&& confi>90 ) {
             mp20.start();
             ten  =false;
             five =false;
@@ -593,8 +599,9 @@ public abstract class CameraActivity extends AppCompatActivity
             twothou =false;
             twohun=false;
             fifty=false;
+            fake=false;
           }
-          else if (!twohun&&recognitionTextView.getText().toString().equalsIgnoreCase("200")&& confi>90 ) {
+          else if (!twohun&&recognitionTextView.getText().toString().equalsIgnoreCase("Rs. 200")&& confi>90 ) {
             mp200.start();
             ten  =false;
             five =false;
@@ -603,8 +610,9 @@ public abstract class CameraActivity extends AppCompatActivity
             twothou =false;
             twohun=true;
             fifty=false;
+            fake=false;
           }
-          else if (!twothou&&recognitionTextView.getText().toString().equalsIgnoreCase("2000")&& confi>90 ) {
+          else if (!twothou&&recognitionTextView.getText().toString().equalsIgnoreCase("Rs. 2000")&& confi>90 ) {
             mp2000.start();
             ten  =false;
             five =false;
@@ -613,6 +621,18 @@ public abstract class CameraActivity extends AppCompatActivity
             twothou =true;
             twohun=false;
             fifty=false;
+            fake=false;
+          }
+          else if(!fake && recognitionTextView.getText().toString().equalsIgnoreCase("fake note") && confi>90)
+          {
+            ten  =false;
+            five =false;
+            hun = false;
+            twen=false;
+            twothou =false;
+            twohun=false;
+            fifty=false;
+            fake=true;
           }
         }catch (Exception e){
           e.printStackTrace();
