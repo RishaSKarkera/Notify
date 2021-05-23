@@ -543,6 +543,7 @@ public abstract class CameraActivity extends AppCompatActivity
   boolean fake=false;
   float total=0;
   TextToSpeech textToSpeech;
+  float c50=0,c100=0,c200=0,c20=0,c2000=0,c10=0,c500=0;
 
   @UiThread
   protected void showResultsInBottomSheet(List<Recognition> results) {
@@ -560,181 +561,216 @@ public abstract class CameraActivity extends AppCompatActivity
 
           if (!five && recognitionTextView.getText().toString().equalsIgnoreCase("Rs. 500") && confi>99 ) {
 
-            textToSpeech = new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
-              @Override
-              public void onInit(int i) {
+            c500++;
+            if(c500>5)
+            {
+              textToSpeech = new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
+                @Override
+                public void onInit(int i) {
 
-                // if No error is found then only it will run
-                if(i!=TextToSpeech.ERROR){
-                  // To Choose language of speech
-                  textToSpeech.setLanguage(Locale.UK);
-                  textToSpeech.speak(recognitionTextView.getText().toString(),TextToSpeech.QUEUE_FLUSH,null,null);
+                  // if No error is found then only it will run
+                  if(i!=TextToSpeech.ERROR){
+                    // To Choose language of speech
+                    textToSpeech.setLanguage(Locale.UK);
+                    textToSpeech.speak(recognitionTextView.getText().toString(),TextToSpeech.QUEUE_FLUSH,null,null);
+                  }
                 }
-              }
-            });
+              });
 
-           // mp500.start();
-            total+=500;
-            five =true;
-            ten = false;
-            hun = false;
-            twen=false;
-            twothou =false;
-            twohun=false;
-            fifty=false;
-            fake=false;
-            total_amt.setText("Rs. "+total);
+              // mp500.start();
+              total+=500;
+              five =true;
+              ten = false;
+              hun = false;
+              twen=false;
+              twothou =false;
+              twohun=false;
+              fifty=false;
+              fake=false;
+              total_amt.setText("Rs. "+total);
+              c500=0;c10=0;c20=0;c50=0;c100=0;c200=0;c2000=0;
+            }
            // textToSpeech.speak(total_amt.getText().toString(),TextToSpeech.QUEUE_FLUSH,null);
 
           } else if (!hun&& recognitionTextView.getText().toString().equalsIgnoreCase("Rs. 100")&& confi>99) {
            // mp100.start();
-            textToSpeech = new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
-              @Override
-              public void onInit(int i) {
+           c100++;
+           if(c100>5)
+           {
+             textToSpeech = new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
+               @Override
+               public void onInit(int i) {
 
-                // if No error is found then only it will run
-                if(i!=TextToSpeech.ERROR){
-                  // To Choose language of speech
-                  textToSpeech.setLanguage(Locale.UK);
-                  textToSpeech.speak(recognitionTextView.getText().toString(),TextToSpeech.QUEUE_FLUSH,null,null);
-                }
-              }
-            });
-            total+=100;
-            hun = true;
-            five =false;
-            ten = false;
-            twen=false;
-            twothou =false;
-            twohun=false;
-            fifty=false;
-            fake=false;
-            total_amt.setText("Rs. "+total);
+                 // if No error is found then only it will run
+                 if(i!=TextToSpeech.ERROR){
+                   // To Choose language of speech
+                   textToSpeech.setLanguage(Locale.UK);
+                   textToSpeech.speak(recognitionTextView.getText().toString(),TextToSpeech.QUEUE_FLUSH,null,null);
+                 }
+               }
+             });
+             total+=100;
+             hun = true;
+             five =false;
+             ten = false;
+             twen=false;
+             twothou =false;
+             twohun=false;
+             fifty=false;
+             fake=false;
+             total_amt.setText("Rs. "+total);
+             c500=0;c10=0;c20=0;c50=0;c100=0;c200=0;c2000=0;;
+           }
           }
           else if (!ten&&recognitionTextView.getText().toString().equalsIgnoreCase("Rs. 10")&& confi>99 ) {
           //  mp10.start();
-            textToSpeech = new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
-              @Override
-              public void onInit(int i) {
+           c10++;
+           if(c10>5)
+           {
+             textToSpeech = new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
+               @Override
+               public void onInit(int i) {
 
-                // if No error is found then only it will run
-                if(i!=TextToSpeech.ERROR){
-                  // To Choose language of speech
-                  textToSpeech.setLanguage(Locale.UK);
-                  textToSpeech.speak(recognitionTextView.getText().toString(),TextToSpeech.QUEUE_FLUSH,null,null);
-                }
-              }
-            });
-            total+=10;
-            ten  =true;
-            five =false;
-            hun = false;
-            twen=false;
-            twothou =false;
-            twohun=false;
-            fifty=false;
-            fake=false;
-            total_amt.setText("Rs. "+total);
+                 // if No error is found then only it will run
+                 if(i!=TextToSpeech.ERROR){
+                   // To Choose language of speech
+                   textToSpeech.setLanguage(Locale.UK);
+                   textToSpeech.speak(recognitionTextView.getText().toString(),TextToSpeech.QUEUE_FLUSH,null,null);
+                 }
+               }
+             });
+             total+=10;
+             ten  =true;
+             five =false;
+             hun = false;
+             twen=false;
+             twothou =false;
+             twohun=false;
+             fifty=false;
+             fake=false;
+             total_amt.setText("Rs. "+total);
+             c500=0;c10=0;c20=0;c50=0;c100=0;c200=0;c2000=0;;
+           }
           }
           else if (!fifty&&recognitionTextView.getText().toString().equalsIgnoreCase("Rs. 50")&& confi>99) {
            // mp50.start();
-            textToSpeech = new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
-              @Override
-              public void onInit(int i) {
+           c50++;
+           if(c50>5)
+           {
+             textToSpeech = new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
+               @Override
+               public void onInit(int i) {
 
-                // if No error is found then only it will run
-                if(i!=TextToSpeech.ERROR){
-                  // To Choose language of speech
-                  textToSpeech.setLanguage(Locale.UK);
-                  textToSpeech.speak(recognitionTextView.getText().toString(),TextToSpeech.QUEUE_FLUSH,null,null);
-                }
-              }
-            });
-            total+=50;
-            ten  =false;
-            five =false;
-            hun = false;
-            twen=false;
-            twothou =false;
-            twohun=false;
-            fifty=true;
-            fake=false;
-            total_amt.setText("Rs. "+total);
+                 // if No error is found then only it will run
+                 if(i!=TextToSpeech.ERROR){
+                   // To Choose language of speech
+                   textToSpeech.setLanguage(Locale.UK);
+                   textToSpeech.speak(recognitionTextView.getText().toString(),TextToSpeech.QUEUE_FLUSH,null,null);
+                 }
+               }
+             });
+             total+=50;
+             ten  =false;
+             five =false;
+             hun = false;
+             twen=false;
+             twothou =false;
+             twohun=false;
+             fifty=true;
+             fake=false;
+             total_amt.setText("Rs. "+total);
+             c500=0;c10=0;c20=0;c50=0;c100=0;c200=0;c2000=0;;
+           }
           }
           else if (!twen&&recognitionTextView.getText().toString().equalsIgnoreCase("Rs. 20")&& confi>99) {
            // mp20.start();
-            textToSpeech = new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
-              @Override
-              public void onInit(int i) {
+            c20++;
+            if(c20>5)
+            {
+              textToSpeech = new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
+                @Override
+                public void onInit(int i) {
 
-                // if No error is found then only it will run
-                if(i!=TextToSpeech.ERROR){
-                  // To Choose language of speech
-                  textToSpeech.setLanguage(Locale.UK);
-                  textToSpeech.speak(recognitionTextView.getText().toString(),TextToSpeech.QUEUE_FLUSH,null,null);
+                  // if No error is found then only it will run
+                  if(i!=TextToSpeech.ERROR){
+                    // To Choose language of speech
+                    textToSpeech.setLanguage(Locale.UK);
+                    textToSpeech.speak(recognitionTextView.getText().toString(),TextToSpeech.QUEUE_FLUSH,null,null);
+                  }
                 }
-              }
-            });
-            total+=20;
-            ten  =false;
-            five =false;
-            hun = false;
-            twen=true;
-            twothou =false;
-            twohun=false;
-            fifty=false;
-            fake=false;
-            total_amt.setText("Rs. "+total);
+              });
+              total+=20;
+              ten  =false;
+              five =false;
+              hun = false;
+              twen=true;
+              twothou =false;
+              twohun=false;
+              fifty=false;
+              fake=false;
+              total_amt.setText("Rs. "+total);
+              c500=0;c10=0;c20=0;c50=0;c100=0;c200=0;c2000=0;;
+            }
           }
           else if (!twohun&&recognitionTextView.getText().toString().equalsIgnoreCase("Rs. 200")&& confi>99) {
             //mp200.start();
-            textToSpeech = new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
-              @Override
-              public void onInit(int i) {
+            c200++;
+            if(c200>5)
+            {
+              textToSpeech = new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
+                @Override
+                public void onInit(int i) {
 
-                // if No error is found then only it will run
-                if(i!=TextToSpeech.ERROR){
-                  // To Choose language of speech
-                  textToSpeech.setLanguage(Locale.UK);
-                  textToSpeech.speak(recognitionTextView.getText().toString(),TextToSpeech.QUEUE_FLUSH,null,null);
+                  // if No error is found then only it will run
+                  if(i!=TextToSpeech.ERROR){
+                    // To Choose language of speech
+                    textToSpeech.setLanguage(Locale.UK);
+                    textToSpeech.speak(recognitionTextView.getText().toString(),TextToSpeech.QUEUE_FLUSH,null,null);
+                  }
                 }
-              }
-            });
-            total+=200;
-            ten  =false;
-            five =false;
-            hun = false;
-            twen=false;
-            twothou =false;
-            twohun=true;
-            fifty=false;
-            fake=false;
-            total_amt.setText("Rs. "+total);
+              });
+              total+=200;
+              ten  =false;
+              five =false;
+              hun = false;
+              twen=false;
+              twothou =false;
+              twohun=true;
+              fifty=false;
+              fake=false;
+              total_amt.setText("Rs. "+total);
+              c500=0;c10=0;c20=0;c50=0;c100=0;c200=0;c2000=0;
+            }
           }
           else if (!twothou&&recognitionTextView.getText().toString().equalsIgnoreCase("Rs. 2000")&& confi>99 ) {
            // mp2000.start();
-            textToSpeech = new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
-              @Override
-              public void onInit(int i) {
+           c2000++;
+           if(c2000>5)
+           {
+             textToSpeech = new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
+               @Override
+               public void onInit(int i) {
 
-                // if No error is found then only it will run
-                if(i!=TextToSpeech.ERROR){
-                  // To Choose language of speech
-                  textToSpeech.setLanguage(Locale.UK);
-                  textToSpeech.speak(recognitionTextView.getText().toString(),TextToSpeech.QUEUE_FLUSH,null,null);
-                }
-              }
-            });
-            total+=2000;
-            ten  =false;
-            five =false;
-            hun = false;
-            twen=false;
-            twothou =true;
-            twohun=false;
-            fifty=false;
-            fake=false;
-            total_amt.setText("Rs. "+total);
+                 // if No error is found then only it will run
+                 if(i!=TextToSpeech.ERROR){
+                   // To Choose language of speech
+                   textToSpeech.setLanguage(Locale.UK);
+                   textToSpeech.speak(recognitionTextView.getText().toString(),TextToSpeech.QUEUE_FLUSH,null,null);
+                 }
+               }
+             });
+             total+=2000;
+             ten  =false;
+             five =false;
+             hun = false;
+             twen=false;
+             twothou =true;
+             twohun=false;
+             fifty=false;
+             fake=false;
+             total_amt.setText("Rs. "+total);
+             c500=0;c10=0;c20=0;c50=0;c100=0;c200=0;c2000=0;
+           }
           }
           else if(!fake && recognitionTextView.getText().toString().equalsIgnoreCase("fake note") && confi>99)
           {
