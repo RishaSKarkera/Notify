@@ -1,8 +1,5 @@
-Rs. 10
-Rs. 100
 Rs. 20
-Rs. 200
-Rs. 2000
 Rs. 50
+Rs. 100
+Rs. 200
 Rs. 500
-fake note
