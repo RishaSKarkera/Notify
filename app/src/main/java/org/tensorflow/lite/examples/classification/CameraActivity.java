@@ -42,6 +42,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.speech.tts.TextToSpeech;
+import android.util.Log;
 import android.util.Size;
 import android.view.Surface;
 import android.view.View;
@@ -541,9 +542,11 @@ public abstract class CameraActivity extends AppCompatActivity
   boolean fifty=false;
   boolean twothou=false;
   boolean fake=false;
+  boolean nonote=false;
   float total=0;
   TextToSpeech textToSpeech;
-  float c50=0,c100=0,c200=0,c20=0,c2000=0,c10=0,c500=0;
+  String result="Total amount is ";
+  float c50=0,c100=0,c200=0,c20=0,c2000=0,c10=0,c500=0,cfake=0;
 
   @UiThread
   protected void showResultsInBottomSheet(List<Recognition> results) {
@@ -557,13 +560,16 @@ public abstract class CameraActivity extends AppCompatActivity
 
         float confi = 100 * recognition.getConfidence();
         try {
-
-
           if (!five && recognitionTextView.getText().toString().equalsIgnoreCase("Rs. 500") && confi>99 ) {
 
             c500++;
+            Log.i("count_500", "Value: " + c500);
             if(c500>5)
             {
+              result="Total amount is ";
+              total+=500;
+              total_amt.setText("Rs. "+total);
+              result+=total_amt.getText().toString();
               textToSpeech = new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
                 @Override
                 public void onInit(int i) {
@@ -572,13 +578,14 @@ public abstract class CameraActivity extends AppCompatActivity
                   if(i!=TextToSpeech.ERROR){
                     // To Choose language of speech
                     textToSpeech.setLanguage(Locale.UK);
-                    textToSpeech.speak(recognitionTextView.getText().toString(),TextToSpeech.QUEUE_FLUSH,null,null);
+                    textToSpeech.speak(recognitionTextView.getText().toString()+" and "+result,TextToSpeech.QUEUE_FLUSH,null,null);
+                   // textToSpeech.speak(result,TextToSpeech.QUEUE_FLUSH,null,null);
                   }
                 }
               });
 
               // mp500.start();
-              total+=500;
+
               five =true;
               ten = false;
               hun = false;
@@ -587,16 +594,23 @@ public abstract class CameraActivity extends AppCompatActivity
               twohun=false;
               fifty=false;
               fake=false;
-              total_amt.setText("Rs. "+total);
-              c500=0;c10=0;c20=0;c50=0;c100=0;c200=0;c2000=0;
+              nonote=false;
+
+              c500=0;c10=0;c20=0;c50=0;c100=0;c200=0;c2000=0;cfake=0;
             }
            // textToSpeech.speak(total_amt.getText().toString(),TextToSpeech.QUEUE_FLUSH,null);
 
           } else if (!hun&& recognitionTextView.getText().toString().equalsIgnoreCase("Rs. 100")&& confi>99) {
            // mp100.start();
            c100++;
+
+            Log.i("count_100", "Value: " + c100);
            if(c100>5)
            {
+             result="Total amount is ";
+             total+=100;
+             total_amt.setText("Rs. "+total);
+             result+=total_amt.getText().toString();
              textToSpeech = new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
                @Override
                public void onInit(int i) {
@@ -605,11 +619,12 @@ public abstract class CameraActivity extends AppCompatActivity
                  if(i!=TextToSpeech.ERROR){
                    // To Choose language of speech
                    textToSpeech.setLanguage(Locale.UK);
-                   textToSpeech.speak(recognitionTextView.getText().toString(),TextToSpeech.QUEUE_FLUSH,null,null);
+                   textToSpeech.speak(recognitionTextView.getText().toString()+" and "+result,TextToSpeech.QUEUE_FLUSH,null,null);
+                  // textToSpeech.speak(result,TextToSpeech.QUEUE_FLUSH,null,null);
                  }
                }
              });
-             total+=100;
+
              hun = true;
              five =false;
              ten = false;
@@ -618,45 +633,61 @@ public abstract class CameraActivity extends AppCompatActivity
              twohun=false;
              fifty=false;
              fake=false;
-             total_amt.setText("Rs. "+total);
-             c500=0;c10=0;c20=0;c50=0;c100=0;c200=0;c2000=0;;
+             nonote=false;
+
+             c500=0;c10=0;c20=0;c50=0;c100=0;c200=0;c2000=0;cfake=0;
            }
           }
           else if (!ten&&recognitionTextView.getText().toString().equalsIgnoreCase("Rs. 10")&& confi>99 ) {
-          //  mp10.start();
-           c10++;
-           if(c10>5)
-           {
-             textToSpeech = new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
-               @Override
-               public void onInit(int i) {
+            //  mp10.start();
+            c10++;
 
-                 // if No error is found then only it will run
-                 if(i!=TextToSpeech.ERROR){
-                   // To Choose language of speech
-                   textToSpeech.setLanguage(Locale.UK);
-                   textToSpeech.speak(recognitionTextView.getText().toString(),TextToSpeech.QUEUE_FLUSH,null,null);
-                 }
-               }
-             });
-             total+=10;
-             ten  =true;
-             five =false;
-             hun = false;
-             twen=false;
-             twothou =false;
-             twohun=false;
-             fifty=false;
-             fake=false;
-             total_amt.setText("Rs. "+total);
-             c500=0;c10=0;c20=0;c50=0;c100=0;c200=0;c2000=0;;
-           }
+            Log.i("count_10", "Value: " + c10);
+            if(c10>5)
+            {
+              result="Total amount is ";
+              total+=10;
+              total_amt.setText("Rs. "+total);
+              result+=total_amt.getText().toString();
+              textToSpeech = new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
+                @Override
+                public void onInit(int i) {
+
+                  // if No error is found then only it will run
+                  if(i!=TextToSpeech.ERROR){
+                    // To Choose language of speech
+                    textToSpeech.setLanguage(Locale.UK);
+                    textToSpeech.speak("Rs. 10"+" and "+result,TextToSpeech.QUEUE_FLUSH,null,null);
+                   // textToSpeech.speak(result,TextToSpeech.QUEUE_FLUSH,null,null);
+                  }
+                }
+              });
+
+              ten  =true;
+              five =false;
+              hun = false;
+              twen=false;
+              twothou =false;
+              twohun=false;
+              fifty=false;
+              fake=false;
+              nonote=false;
+
+              c500=0;c10=0;c20=0;c50=0;c100=0;c200=0;c2000=0;cfake=0;
+            }
           }
+
           else if (!fifty&&recognitionTextView.getText().toString().equalsIgnoreCase("Rs. 50")&& confi>99) {
            // mp50.start();
            c50++;
+
+            Log.i("count_50", "Value: " + c50);
            if(c50>5)
            {
+             result="Total amount is ";
+             total+=50;
+             total_amt.setText("Rs. "+total);
+             result+=total_amt.getText().toString();
              textToSpeech = new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
                @Override
                public void onInit(int i) {
@@ -665,11 +696,12 @@ public abstract class CameraActivity extends AppCompatActivity
                  if(i!=TextToSpeech.ERROR){
                    // To Choose language of speech
                    textToSpeech.setLanguage(Locale.UK);
-                   textToSpeech.speak(recognitionTextView.getText().toString(),TextToSpeech.QUEUE_FLUSH,null,null);
+                   textToSpeech.speak(recognitionTextView.getText().toString()+" and "+result,TextToSpeech.QUEUE_FLUSH,null,null);
+                  // textToSpeech.speak(result,TextToSpeech.QUEUE_FLUSH,null,null);
                  }
                }
              });
-             total+=50;
+
              ten  =false;
              five =false;
              hun = false;
@@ -678,15 +710,21 @@ public abstract class CameraActivity extends AppCompatActivity
              twohun=false;
              fifty=true;
              fake=false;
-             total_amt.setText("Rs. "+total);
-             c500=0;c10=0;c20=0;c50=0;c100=0;c200=0;c2000=0;;
+             nonote=false;
+             c500=0;c10=0;c20=0;c50=0;c100=0;c200=0;c2000=0;cfake=0;
            }
           }
           else if (!twen&&recognitionTextView.getText().toString().equalsIgnoreCase("Rs. 20")&& confi>99) {
-           // mp20.start();
+            // mp20.start();
             c20++;
+
+            Log.i("count_20", "Value: " + c20);
             if(c20>5)
             {
+              result="Total amount is ";
+              total+=20;
+              total_amt.setText("Rs. "+total);
+              result+=total_amt.getText().toString();
               textToSpeech = new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
                 @Override
                 public void onInit(int i) {
@@ -695,11 +733,12 @@ public abstract class CameraActivity extends AppCompatActivity
                   if(i!=TextToSpeech.ERROR){
                     // To Choose language of speech
                     textToSpeech.setLanguage(Locale.UK);
-                    textToSpeech.speak(recognitionTextView.getText().toString(),TextToSpeech.QUEUE_FLUSH,null,null);
+                    textToSpeech.speak("Rs. 20"+" and "+result,TextToSpeech.QUEUE_FLUSH,null,null);
+                   // textToSpeech.speak(result,TextToSpeech.QUEUE_FLUSH,null,null);
                   }
                 }
               });
-              total+=20;
+
               ten  =false;
               five =false;
               hun = false;
@@ -708,14 +747,88 @@ public abstract class CameraActivity extends AppCompatActivity
               twohun=false;
               fifty=false;
               fake=false;
-              total_amt.setText("Rs. "+total);
-              c500=0;c10=0;c20=0;c50=0;c100=0;c200=0;c2000=0;;
+              nonote=false;
+              c500=0;c10=0;c20=0;c50=0;c100=0;c200=0;c2000=0;cfake=0;
             }
           }
+
           else if (!twohun&&recognitionTextView.getText().toString().equalsIgnoreCase("Rs. 200")&& confi>99) {
             //mp200.start();
             c200++;
+            Log.i("count_200", "Value: " + c200);
             if(c200>5)
+            {
+              result="Total amount is ";
+              total+=200;
+              total_amt.setText("Rs. "+total);
+              result+=total_amt.getText().toString();
+              textToSpeech = new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
+                @Override
+                public void onInit(int i) {
+
+                  // if No error is found then only it will run
+                  if(i!=TextToSpeech.ERROR){
+                    // To Choose language of speech
+                    textToSpeech.setLanguage(Locale.UK);
+                    textToSpeech.speak(recognitionTextView.getText().toString()+" and "+result,TextToSpeech.QUEUE_FLUSH,null,null);
+                  //  textToSpeech.speak(result,TextToSpeech.QUEUE_FLUSH,null,null);
+                  }
+                }
+              });
+              ten  =false;
+              five =false;
+              hun = false;
+              twen=false;
+              twothou =false;
+              twohun=true;
+              fifty=false;
+              fake=false;
+              nonote=false;
+              c500=0;c10=0;c20=0;c50=0;c100=0;c200=0;c2000=0;cfake=0;
+            }
+          }
+          else if (!twothou&&recognitionTextView.getText().toString().equalsIgnoreCase("Rs. 2000")&& confi>99 ) {
+           // mp2000.start();
+           c2000++;
+
+            Log.i("count_2000", "Value: " + c2000);
+           if(c2000>5)
+           {
+             result="Total amount is ";
+             total+=2000;
+             total_amt.setText("Rs. "+total);
+             result+=total_amt.getText().toString();
+             textToSpeech = new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
+               @Override
+               public void onInit(int i) {
+
+                 // if No error is found then only it will run
+                 if(i!=TextToSpeech.ERROR){
+                   // To Choose language of speech
+                   textToSpeech.setLanguage(Locale.UK);
+                   textToSpeech.speak(recognitionTextView.getText().toString()+" and "+result,TextToSpeech.QUEUE_FLUSH,null,null);
+                 //  textToSpeech.speak(result,TextToSpeech.QUEUE_FLUSH,null,null);
+                 }
+               }
+             });
+             ten  =false;
+             five =false;
+             hun = false;
+             twen=false;
+             twothou =true;
+             twohun=false;
+             fifty=false;
+             fake=false;
+             nonote=false;
+             c500=0;c10=0;c20=0;c50=0;c100=0;c200=0;c2000=0;cfake=0;
+           }
+          }
+          else if(!fake && recognitionTextView.getText().toString().equalsIgnoreCase("fake note") && confi>99)
+          {
+            cfake++;
+
+            System.out.println(cfake);
+            if(cfake>10)
             {
               textToSpeech = new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
                 @Override
@@ -729,50 +842,21 @@ public abstract class CameraActivity extends AppCompatActivity
                   }
                 }
               });
-              total+=200;
+
               ten  =false;
               five =false;
               hun = false;
               twen=false;
               twothou =false;
-              twohun=true;
+              twohun=false;
               fifty=false;
-              fake=false;
-              total_amt.setText("Rs. "+total);
-              c500=0;c10=0;c20=0;c50=0;c100=0;c200=0;c2000=0;
+              fake=true;
+              nonote=false;
+              c500=0;c10=0;c20=0;c50=0;c100=0;c200=0;c2000=0;cfake=0;
             }
           }
-          else if (!twothou&&recognitionTextView.getText().toString().equalsIgnoreCase("Rs. 2000")&& confi>99 ) {
-           // mp2000.start();
-           c2000++;
-           if(c2000>5)
-           {
-             textToSpeech = new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
-               @Override
-               public void onInit(int i) {
 
-                 // if No error is found then only it will run
-                 if(i!=TextToSpeech.ERROR){
-                   // To Choose language of speech
-                   textToSpeech.setLanguage(Locale.UK);
-                   textToSpeech.speak(recognitionTextView.getText().toString(),TextToSpeech.QUEUE_FLUSH,null,null);
-                 }
-               }
-             });
-             total+=2000;
-             ten  =false;
-             five =false;
-             hun = false;
-             twen=false;
-             twothou =true;
-             twohun=false;
-             fifty=false;
-             fake=false;
-             total_amt.setText("Rs. "+total);
-             c500=0;c10=0;c20=0;c50=0;c100=0;c200=0;c2000=0;
-           }
-          }
-          else if(!fake && recognitionTextView.getText().toString().equalsIgnoreCase("fake note") && confi>99)
+          else if(!nonote && recognitionTextView.getText().toString().equalsIgnoreCase("No Note Detected") && confi>99)
           {
             ten  =false;
             five =false;
@@ -781,7 +865,8 @@ public abstract class CameraActivity extends AppCompatActivity
             twothou =false;
             twohun=false;
             fifty=false;
-            fake=true;
+            fake=false;
+            nonote=true;
           }
         }catch (Exception e){
           e.printStackTrace();
