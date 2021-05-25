@@ -109,6 +109,7 @@ public abstract class CameraActivity extends AppCompatActivity
   private TextView threadsTextView;
   private LinearLayout linearLayout;
   private ImageView img;
+  private TextView total10,total20,total50,total100,total200,total500,total2000;
 
   //private Model model = Model.QUANTIZED;
   private Model model = Model.FLOAT;
@@ -146,6 +147,13 @@ public abstract class CameraActivity extends AppCompatActivity
     gestureLayout = findViewById(R.id.gesture_layout);
     sheetBehavior = BottomSheetBehavior.from(bottomSheetLayout);
     bottomSheetArrowImageView = findViewById(R.id.bottom_sheet_arrow);
+    total10=findViewById(R.id.tc10);
+    total20=findViewById(R.id.tc20);
+    total50=findViewById(R.id.tc50);
+    total100=findViewById(R.id.tc100);
+    total200=findViewById(R.id.tc200);
+    total500=findViewById(R.id.tc500);
+    total2000=findViewById(R.id.tc2000);
 
     ViewTreeObserver vto = gestureLayout.getViewTreeObserver();
     vto.addOnGlobalLayoutListener(
@@ -554,7 +562,7 @@ public abstract class CameraActivity extends AppCompatActivity
   String result="Total amount is ";
   boolean condition=true;
   float c50=0,c100=0,c200=0,c20=0,c2000=0,c10=0,c500=0,cfake=0;
-
+ int tc10=0,tc20=0,tc50=0,tc100=0,tc200=0,tc500=0,tc2000=0;
 
 
   @UiThread
@@ -578,7 +586,9 @@ public abstract class CameraActivity extends AppCompatActivity
             {
               result="Total amount is ";
               total+=500;
+              tc500++;
               total_amt.setText("Rs. "+total);
+              total500.setText(Integer.toString(tc500));
               result+=total_amt.getText().toString();
               textToSpeech = new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
                 @Override
@@ -619,7 +629,9 @@ public abstract class CameraActivity extends AppCompatActivity
            {
              result="Total amount is ";
              total+=100;
+             tc100++;
              total_amt.setText("Rs. "+total);
+             total100.setText(Integer.toString(tc100));
              result+=total_amt.getText().toString();
              textToSpeech = new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
                @Override
@@ -657,7 +669,9 @@ public abstract class CameraActivity extends AppCompatActivity
             {
               result="Total amount is ";
               total+=10;
+              tc10++;
               total_amt.setText("Rs. "+total);
+              total10.setText(Integer.toString(tc10));
               result+=total_amt.getText().toString();
               textToSpeech = new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
                 @Override
@@ -696,7 +710,9 @@ public abstract class CameraActivity extends AppCompatActivity
            {
              result="Total amount is ";
              total+=50;
+             tc50++;
              total_amt.setText("Rs. "+total);
+             total50.setText(Integer.toString(tc50));
              result+=total_amt.getText().toString();
              textToSpeech = new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
                @Override
@@ -733,7 +749,9 @@ public abstract class CameraActivity extends AppCompatActivity
             {
               result="Total amount is ";
               total+=20;
+              tc20++;
               total_amt.setText("Rs. "+total);
+              total20.setText(Integer.toString(tc20));
               result+=total_amt.getText().toString();
               textToSpeech = new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
                 @Override
@@ -770,7 +788,9 @@ public abstract class CameraActivity extends AppCompatActivity
             {
               result="Total amount is ";
               total+=200;
+              tc200++;
               total_amt.setText("Rs. "+total);
+              total200.setText(Integer.toString(tc200));
               result+=total_amt.getText().toString();
               textToSpeech = new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
                 @Override
@@ -806,7 +826,9 @@ public abstract class CameraActivity extends AppCompatActivity
            {
              result="Total amount is ";
              total+=2000;
+             tc2000++;
              total_amt.setText("Rs. "+total);
+             total2000.setText(Integer.toString(tc2000));
              result+=total_amt.getText().toString();
              textToSpeech = new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
                @Override
@@ -899,7 +921,21 @@ public abstract class CameraActivity extends AppCompatActivity
                    }
                  }
                });
+               total2000.setText(Integer.toString(tc2000));
+               total200.setText(Integer.toString(tc200));
+               total100.setText(Integer.toString(tc100));
+               total500.setText(Integer.toString(tc500));
+               total10.setText(Integer.toString(tc10));
+               total20.setText(Integer.toString(tc20));
+               total50.setText(Integer.toString(tc50));
                total=0;
+               tc10=0;
+               tc20=0;
+               tc50=0;
+               tc100=0;
+               tc200=0;
+               tc500=0;
+               tc2000=0;
                // total_amt.setText("Rs. "+total);
 
                condition=false;
@@ -910,6 +946,8 @@ public abstract class CameraActivity extends AppCompatActivity
               // imageView is not within the visible window
               condition=true;
               total_amt.setText("Rs. "+total);
+
+
             }
 
 
