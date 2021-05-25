@@ -20,6 +20,7 @@ import android.Manifest;
 import android.app.Fragment;
 import android.content.Context;
 import android.content.pm.PackageManager;
+import android.graphics.Rect;
 import android.hardware.Camera;
 import android.hardware.camera2.CameraAccessException;
 import android.hardware.camera2.CameraCharacteristics;
@@ -106,6 +107,8 @@ public abstract class CameraActivity extends AppCompatActivity
   private Spinner modelSpinner;
   private Spinner deviceSpinner;
   private TextView threadsTextView;
+  private LinearLayout linearLayout;
+  private ImageView img;
 
   //private Model model = Model.QUANTIZED;
   private Model model = Model.FLOAT;
@@ -130,6 +133,9 @@ public abstract class CameraActivity extends AppCompatActivity
       requestPermission();
     }
 
+
+    linearLayout=findViewById(R.id.soundLayout);
+    img=findViewById(R.id.sound);
     total_amt=findViewById(R.id.amt);
     threadsTextView = findViewById(R.id.threads);
     plusImageView = findViewById(R.id.plus);
@@ -546,10 +552,14 @@ public abstract class CameraActivity extends AppCompatActivity
   float total=0;
   TextToSpeech textToSpeech;
   String result="Total amount is ";
+  boolean condition=true;
   float c50=0,c100=0,c200=0,c20=0,c2000=0,c10=0,c500=0,cfake=0;
+
+
 
   @UiThread
   protected void showResultsInBottomSheet(List<Recognition> results) {
+
     if (results != null && results.size() >= 3) {
       Recognition recognition = results.get(0);
       if (recognition != null) {
@@ -578,7 +588,7 @@ public abstract class CameraActivity extends AppCompatActivity
                   if(i!=TextToSpeech.ERROR){
                     // To Choose language of speech
                     textToSpeech.setLanguage(Locale.UK);
-                    textToSpeech.speak(recognitionTextView.getText().toString()+" and "+result,TextToSpeech.QUEUE_FLUSH,null,null);
+                    textToSpeech.speak(recognitionTextView.getText().toString(),TextToSpeech.QUEUE_FLUSH,null,null);
                    // textToSpeech.speak(result,TextToSpeech.QUEUE_FLUSH,null,null);
                   }
                 }
@@ -619,7 +629,7 @@ public abstract class CameraActivity extends AppCompatActivity
                  if(i!=TextToSpeech.ERROR){
                    // To Choose language of speech
                    textToSpeech.setLanguage(Locale.UK);
-                   textToSpeech.speak(recognitionTextView.getText().toString()+" and "+result,TextToSpeech.QUEUE_FLUSH,null,null);
+                   textToSpeech.speak(recognitionTextView.getText().toString(),TextToSpeech.QUEUE_FLUSH,null,null);
                   // textToSpeech.speak(result,TextToSpeech.QUEUE_FLUSH,null,null);
                  }
                }
@@ -657,7 +667,7 @@ public abstract class CameraActivity extends AppCompatActivity
                   if(i!=TextToSpeech.ERROR){
                     // To Choose language of speech
                     textToSpeech.setLanguage(Locale.UK);
-                    textToSpeech.speak("Rs. 10"+" and "+result,TextToSpeech.QUEUE_FLUSH,null,null);
+                    textToSpeech.speak("Rs. 10",TextToSpeech.QUEUE_FLUSH,null,null);
                    // textToSpeech.speak(result,TextToSpeech.QUEUE_FLUSH,null,null);
                   }
                 }
@@ -696,7 +706,7 @@ public abstract class CameraActivity extends AppCompatActivity
                  if(i!=TextToSpeech.ERROR){
                    // To Choose language of speech
                    textToSpeech.setLanguage(Locale.UK);
-                   textToSpeech.speak(recognitionTextView.getText().toString()+" and "+result,TextToSpeech.QUEUE_FLUSH,null,null);
+                   textToSpeech.speak(recognitionTextView.getText().toString(),TextToSpeech.QUEUE_FLUSH,null,null);
                   // textToSpeech.speak(result,TextToSpeech.QUEUE_FLUSH,null,null);
                  }
                }
@@ -733,7 +743,7 @@ public abstract class CameraActivity extends AppCompatActivity
                   if(i!=TextToSpeech.ERROR){
                     // To Choose language of speech
                     textToSpeech.setLanguage(Locale.UK);
-                    textToSpeech.speak("Rs. 20"+" and "+result,TextToSpeech.QUEUE_FLUSH,null,null);
+                    textToSpeech.speak("Rs. 20",TextToSpeech.QUEUE_FLUSH,null,null);
                    // textToSpeech.speak(result,TextToSpeech.QUEUE_FLUSH,null,null);
                   }
                 }
@@ -770,7 +780,7 @@ public abstract class CameraActivity extends AppCompatActivity
                   if(i!=TextToSpeech.ERROR){
                     // To Choose language of speech
                     textToSpeech.setLanguage(Locale.UK);
-                    textToSpeech.speak(recognitionTextView.getText().toString()+" and "+result,TextToSpeech.QUEUE_FLUSH,null,null);
+                    textToSpeech.speak(recognitionTextView.getText().toString(),TextToSpeech.QUEUE_FLUSH,null,null);
                   //  textToSpeech.speak(result,TextToSpeech.QUEUE_FLUSH,null,null);
                   }
                 }
@@ -806,7 +816,7 @@ public abstract class CameraActivity extends AppCompatActivity
                  if(i!=TextToSpeech.ERROR){
                    // To Choose language of speech
                    textToSpeech.setLanguage(Locale.UK);
-                   textToSpeech.speak(recognitionTextView.getText().toString()+" and "+result,TextToSpeech.QUEUE_FLUSH,null,null);
+                   textToSpeech.speak(recognitionTextView.getText().toString(),TextToSpeech.QUEUE_FLUSH,null,null);
                  //  textToSpeech.speak(result,TextToSpeech.QUEUE_FLUSH,null,null);
                  }
                }
@@ -868,6 +878,41 @@ public abstract class CameraActivity extends AppCompatActivity
             fake=false;
             nonote=true;
           }
+          //Voice message for total amount
+           Rect rect = new Rect();
+            linearLayout.getHitRect(rect);
+           // condition=img.getLocalVisibleRect(rect);
+            if (img.getLocalVisibleRect(rect) ) {
+             if(condition)
+             {
+               // imageView is within the visible window
+               textToSpeech = new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
+                 @Override
+                 public void onInit(int i) {
+
+                   // if No error is found then only it will run
+                   if(i!=TextToSpeech.ERROR){
+                     // To Choose language of speech
+                     textToSpeech.setLanguage(Locale.UK);
+                     //textToSpeech.speak(recognitionTextView.getText().toString()+" and "+result,TextToSpeech.QUEUE_FLUSH,null,null);
+                     textToSpeech.speak("Total amount is "+total_amt.getText().toString(),TextToSpeech.QUEUE_FLUSH,null,null);
+                   }
+                 }
+               });
+               total=0;
+               // total_amt.setText("Rs. "+total);
+
+               condition=false;
+
+            }
+            }
+            else {
+              // imageView is not within the visible window
+              condition=true;
+              total_amt.setText("Rs. "+total);
+            }
+
+
         }catch (Exception e){
           e.printStackTrace();
         }
@@ -889,6 +934,7 @@ public abstract class CameraActivity extends AppCompatActivity
               String.format("%.2f", (100 * recognition2.getConfidence())) + "%");
       }
     }
+
   }
 
   protected void showFrameInfo(String frameInfo) {
